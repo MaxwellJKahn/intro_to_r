@@ -1,10 +1,12 @@
 library(ggplot2)
+install.packages("data.table")
 library(data.table)
 library(dplyr)
 
-
+setwd("~/Desktop/Info/intro_to_r/ggplot")
 load("suicides.rdata")
 all_suicides <- copy(suicides) ## GIVE EXAMPLE OF POINTERS, with actual people and actual pointing.
+
 suicides <- suicides %>% 
             group_by(year, state, means) %>% 
             mutate(deaths = sum(deaths))
@@ -19,7 +21,7 @@ aesthetic <- ggplot(suicides, aes(x=year, y=deaths))
 scatter <- ggplot(suicides, aes(x=year, y=deaths)) +
           geom_point()
 
-# split "means" out by color
+# split "means" (how the suicide was committed) out by color
 color_by_means <- ggplot(suicides, aes(x=year, y=deaths, color=means)) +
                   geom_point(size=3)
 
